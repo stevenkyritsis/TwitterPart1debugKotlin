@@ -17,7 +17,7 @@ class TimelineActivity : AppCompatActivity() {
     lateinit var adapter: TweetsAdapter
     lateinit var swipeContainer: SwipeRefreshLayout
 
-    val tweets = ArrayList<Tweet>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

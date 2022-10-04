@@ -1,63 +1,62 @@
-# Project 2 - *Name of App Here*
+# FlixsterPartOneDebuggingChallange
 
-**Name of your app** is an android app that allows a user to view his Twitter timeline. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+## Debugging strategies
 
-## User Stories
+### Basic debugging workflow
+* Understand how to reproduce the issue
+    * Retrace steps, focus on the input or sequence of inputs that caused the issue (toasts)
+* Figure out the most likely reasons the problem occurred
+    * Think about the tasks that would be happening as the app crashes and which ones you suspect might be causing this kind of crash
+* Review each suspect and narrow down until you have a culprit
+    * Use logcat/toasts/debugger to track down the exact cause of the issue
+* Brainstorm potential solutions
+    * Think about what you can change to fix this issue
+* Resolve the issue
+    * Implement the changes and test the app
 
-The following **required** functionality is completed:
+### 3 Main ways to debug
+* **Toasts : small in app notifications**
+* **Logging with logcat : sending data to the log ( viewable from logcat)**
+* **Debugger witgh Breakpoints : Set a breakpoint so you can pause app execution and look at variable states at specific points**
 
-- [x] User can **sign in to Twitter** using OAuth login
-- [x]	User can **view tweets from their home timeline**
-  - [x] User is displayed the username, name, and body for each tweet
-  - [ ] User is displayed the [relative timestamp](https://gist.github.com/nesquena/f786232f5ef72f6e10a7) for each tweet "8m", "7h"
-- [x] User can refresh tweets timeline by pulling down to refresh
 
-The following **optional** features are implemented:
+### **Toasts : best as a preventative**
+#### Good
+* Very fast to set up
+* Easy to see while using app normally
+#### Bad
+* Can not stack, some may not show if multiple try to play at the same time
+* They can not be copied from and do not persist
+#### Best times to use
+* Checking if things that fail gracefully (no crash/error ) are working during normal use
+* Examples Listeners, and Asynchronous callbacks
 
-- [ ] User can view more tweets as they scroll with infinite pagination
-- [ ] Improve the user interface and theme the app to feel "twitter branded"
-- [ ] Links in tweets are clickable and will launch the web browser
-- [ ] User can tap a tweet to display a "detailed" view of that tweet
-- [ ] User can see embedded image media within the tweet detail view
-- [ ] User can watch embedded video within the tweet
-- [ ] User can open the twitter app offline and see last loaded tweets
-- [ ] On the Twitter timeline, leverage the CoordinatorLayout to apply scrolling behavior that hides / shows the toolbar.
 
-The following **additional** features are implemented:
+### **Logging : with Logcat**
+#### Good
+* Easy to check multiple things at the same time
+* Can be reviewed after crash
+* Most crashes will show up in logcat with a Line #
+* Can filter based on options
+#### Bad
+* It can be hard to use while using the app, so you may be forced to review after crash or after run.
+#### Best times to use
+* First place to check if you get an unexpected crash
+* If you are unsure if an API call is working you can print the response URL and check in browser.
+* If you are looking for the cause of a crash that is coming form a code you have not written (example glide or room)
 
-- [ ] List anything else that you can get done to improve the app functionality!
 
-## Video Walkthrough
+### **Breakpoints : with the Debugger**
+#### Good
+* Gives you the absolute most information about the state of variables.
+* Requires no extra lines of code
+* Allows for line by line code execution
 
-Here's a walkthrough of implemented user stories:
+#### Bad
+* Line by line code exploration can take a lot of time
+* Can make Async functions (API calls) break
 
-<img src='https://i.imgur.com/LVt8RFw.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-## Notes
-
-Describe any challenges encountered while building the app.
-
-## Open-source libraries used
-
-- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
-- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
-
-## License
-
-    Copyright 2022 Junior Jean
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+#### Best times to use
+* When you know the issue is related to a variable assigned an unexpected value (null, or junk), but you are unsure where
+* When you are unable to find the cause via Logging

@@ -53,7 +53,7 @@ class TwitterClient(context: Context) : OAuthBaseClient(
 
     fun getHomeTimeline(handler: JsonHttpResponseHandler) {
         val apiUrl =
-            getApiUrl(statuses/home_timeline.json)
+            getApiUrl("https://api.twitter.com/1.1/statuses/home_timeline.json")
 
         // Can specify query string params directly or through RequestParams.
         val params = RequestParams()
